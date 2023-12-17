@@ -43,7 +43,9 @@ CREATE TABLE insurance_products (
     type VARCHAR(50) NOT NULL,
     coverage DECIMAL(10, 2) NOT NULL,
     default_sum_insured DECIMAL(10, 2) NOT NULL,
-    default_premium DECIMAL(10, 2) NOT NULL
+    default_premium DECIMAL(10, 2) NOT NULL,
+    customer_id INT NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
 CREATE TABLE insurance_events (

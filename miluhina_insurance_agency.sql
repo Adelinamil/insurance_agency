@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 17, 2023 at 10:24 PM
+-- Generation Time: Dec 17, 2023 at 10:32 PM
 -- Server version: 10.11.4-MariaDB-1:10.11.4+maria~ubu2004
 -- PHP Version: 8.1.21
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `miluhina_insurance_agency`
 --
-CREATE DATABASE IF NOT EXISTS `miluhina_insurance_agency` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `miluhina_insurance_agency`;
 
 -- --------------------------------------------------------
 
@@ -102,16 +100,17 @@ CREATE TABLE `insurance_products` (
   `type` varchar(50) NOT NULL,
   `coverage` decimal(10,2) NOT NULL,
   `default_sum_insured` decimal(10,2) NOT NULL,
-  `default_premium` decimal(10,2) NOT NULL
+  `default_premium` decimal(10,2) NOT NULL,
+  `customer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `insurance_products`
 --
 
-INSERT INTO `insurance_products` (`product_id`, `name`, `description`, `type`, `coverage`, `default_sum_insured`, `default_premium`) VALUES
-(1, 'Страхование автомобиля', 'Покрытие для вашего транспортного средства', 'Авто', 10000.00, 5000.00, 500.00),
-(2, 'Страхование недвижимости', 'Покрытие для вашего жилья', 'Имущество', 200000.00, 150000.00, 1000.00);
+INSERT INTO `insurance_products` (`product_id`, `name`, `description`, `type`, `coverage`, `default_sum_insured`, `default_premium`, `customer_id`) VALUES
+(1, 'Страхование автомобиля', 'Покрытие для вашего транспортного средства', 'Авто', 10000.00, 5000.00, 500.00, 1),
+(2, 'Страхование недвижимости', 'Покрытие для вашего жилья', 'Имущество', 200000.00, 150000.00, 1000.00, 2);
 
 -- --------------------------------------------------------
 
@@ -192,7 +191,8 @@ ALTER TABLE `insurance_events`
 -- Indexes for table `insurance_products`
 --
 ALTER TABLE `insurance_products`
-  ADD PRIMARY KEY (`product_id`);
+  ADD PRIMARY KEY (`product_id`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `policies`
@@ -258,6 +258,12 @@ ALTER TABLE `auth_tokens`
 --
 ALTER TABLE `insurance_events`
   ADD CONSTRAINT `insurance_events_ibfk_1` FOREIGN KEY (`policy_id`) REFERENCES `policies` (`policy_id`);
+
+--
+-- Constraints for table `insurance_products`
+--
+ALTER TABLE `insurance_products`
+  ADD CONSTRAINT `insurance_products_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`);
 
 --
 -- Constraints for table `policies`
