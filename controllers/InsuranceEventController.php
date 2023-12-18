@@ -2,12 +2,34 @@
 namespace app\controllers;
 
 use app\models\InsuranceEvent;
-use yii\validators\RangeValidator;
+use yii\filters\auth\HttpBearerAuth;
+use yii\web\ForbiddenHttpException;
 use Yii;
 
 class InsuranceEventController extends FunctionController
 {
     public $modelClass = 'app\models\InsuranceEvent';
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => HttpBearerAuth::class,
+        ];
+        return $behaviors;
+    }
+
+    public function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+            $userRole = Yii::$app->user->identity->role;
+            if (!in_array($userRole, ['admin', 'agent'])) {
+                throw new ForbiddenHttpException('У вас нет доступа к данному действию.');
+            }
+            return true;
+        }
+        return false;
+    }
 
     public function actionView($id = null, $policy_id = null, $limit = null, $offset = null, $sort_date = 'ASC', $start_date = null, $end_date = null)
     {
