@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "8d49bde1-2caa-4d87-a164-cd1feeff5d62",
+		"name": "Страховые события",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19481795"
+	},
+	"item": [
+		{
+			"name": "Выборка",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 086vM671BytaDmWfQQ1xyN90TjLD18CVyv6WGiXagb-On5ZOIRtwQFAI7dG-8hvv76ahwTnwGQoH8435Eq8VGEnyjC-U5ubdJFO0A2ZFP9e6oZN67FUY_lfHLnL9l45Q",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://k-miluhina.сделай.site/api/insurance-events?policy_id=1&sort_date=DESC",
+					"protocol": "http",
+					"host": [
+						"k-miluhina",
+						"сделай",
+						"site"
+					],
+					"path": [
+						"api",
+						"insurance-events"
+					],
+					"query": [
+						{
+							"key": "policy_id",
+							"value": "1"
+						},
+						{
+							"key": "sort_date",
+							"value": "DESC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Выборка без параметров",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

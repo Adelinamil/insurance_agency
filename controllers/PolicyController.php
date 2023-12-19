@@ -70,7 +70,7 @@ class PolicyController extends FunctionController
 
     public function actionUpdate($id)
     {
-        $policy = $this->findModel($id);
+        $policy = Policy::findOne($id);
         $policy->load(Yii::$app->request->getBodyParams(), '');
         if (!$policy->validate())
             return $this->validation($policy);
